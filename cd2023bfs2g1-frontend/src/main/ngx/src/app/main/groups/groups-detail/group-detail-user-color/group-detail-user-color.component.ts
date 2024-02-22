@@ -14,8 +14,7 @@ import { OBaseTableCellRenderer } from "ontimize-web-ngx";
 })
 export class GroupDetailUserColorComponent
   extends OBaseTableCellRenderer
-  implements OnInit
-{
+  implements OnInit {
   username: string = "";
   @ViewChild("templateref", { read: TemplateRef, static: false })
   public templateref: TemplateRef<any>;
@@ -25,7 +24,7 @@ export class GroupDetailUserColorComponent
   }
 
   ngOnInit() {
-    let sessionData = localStorage.getItem("com.ontimize.finants.front");
+    let sessionData = localStorage.getItem("com.campusdual.cd2023bfs2g1");
     this.username = JSON.parse(sessionData).session["user"];
   }
 }
