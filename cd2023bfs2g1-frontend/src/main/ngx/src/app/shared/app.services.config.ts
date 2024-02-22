@@ -1,8 +1,26 @@
 export const SERVICE_CONFIG: Object = {
-  'users': {
-    'path': '/users'
+  users: {
+    path: "/users",
   },
-  permissions: {
-    'path': '/permissions'
+  groups: {
+    path: "/groups",
   },
+  balances: {
+    path: "/balances",
+  },
+  memberGroups: {
+    path: "/memberGroups",
+  },
+  movements: {
+    path: "/movements",
+  },
+  categories: {
+    path: "/categories",
+  },
+  goals: {
+    path: "/goals",
+  },
+  app:{
+    path: "/app/public",
+  }
 };

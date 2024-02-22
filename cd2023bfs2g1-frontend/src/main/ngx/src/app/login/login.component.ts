@@ -1,101 +1,129 @@
-import { DomSanitizer } from '@angular/platform-browser';
-import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService, NavigationService, ServiceResponse, OUserInfoService } from 'ontimize-web-ngx';
-import { Observable } from 'rxjs';
-import { MainService } from '../shared/services/main.service';
-import { UserInfoService } from '../shared/services/user-info.service';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Inject,
+  Injector,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation,
+} from "@angular/core";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
+import {
+  AuthService,
+  LocalStorageService,
+  NavigationService,
+} from "ontimize-web-ngx";
+import { Observable } from "rxjs";
+import { AnimacionService } from "../shared/animacion.service";
 
 @Component({
-  selector: 'login',
-  styleUrls: ['./login.component.scss'],
-  templateUrl: './login.component.html',
-  encapsulation: ViewEncapsulation.None
+  selector: "login",
+  styleUrls: ["./login.component.scss"],
+  templateUrl: "./login.component.html",
+  encapsulation: ViewEncapsulation.None,
 })
-export class LoginComponent implements OnInit {
-  public loginForm: UntypedFormGroup = new UntypedFormGroup({});
-  public userCtrl: UntypedFormControl = new UntypedFormControl('', Validators.required);
-  public pwdCtrl: UntypedFormControl = new UntypedFormControl('', Validators.required);
-
-  public sessionExpired = false;
-  private redirect = '/main';
+export class LoginComponent implements OnInit, AfterViewInit {
+  @ViewChild("user", { static: false })
+  user: ElementRef<HTMLInputElement>;
+  @ViewChild("password", { static: false })
+  password: ElementRef<HTMLInputElement>;
+  public showRegister = false;
+  loginForm: FormGroup = new FormGroup({});
+  userCtrl: FormControl = new FormControl("", Validators.required);
+  pwdCtrl: FormControl = new FormControl("", Validators.required);
+  sessionExpired = false;
+  protected showPassword = false;
+  warningMessagePass: String;
+  warningMessageEmail: String;
+  public showSandwich: boolean = false;
+  public customErrorMessage: string;
+  router: Router;
+  errorMessage: string;
+  respMessage: string;
+  duplicateUser: boolean = false;
 
   constructor(
     private actRoute: ActivatedRoute,
-    private router: Router,
-    @Inject(NavigationService) private navigationService: NavigationService,
+    router: Router,
+    @Inject(NavigationService) public navigation: NavigationService,
     @Inject(AuthService) private authService: AuthService,
-    @Inject(MainService) private mainService: MainService,
-    @Inject(OUserInfoService) private oUserInfoService: OUserInfoService,
-    @Inject(UserInfoService) private userInfoService: UserInfoService,
-    @Inject(DomSanitizer) private domSanitizer: DomSanitizer
+    @Inject(LocalStorageService) private localStorageService,
+    public injector: Injector,
+    private animacionService: AnimacionService
   ) {
+    this.router = router;
+
     const qParamObs: Observable<any> = this.actRoute.queryParams;
-    qParamObs.subscribe(params => {
+    qParamObs.subscribe((params) => {
       if (params) {
-        if (params['session-expired']) {
-          this.sessionExpired = (params['session-expired'] === 'true');
+        const isDetail = params["session-expired"];
+        if (isDetail === "true") {
+          this.sessionExpired = true;
         } else {
-          if (params['redirect']) {
-            this.redirect = params['redirect'];
-          }
           this.sessionExpired = false;
         }
       }
     });
   }
+  buttonTerms() {
+    this.router.navigate(["../login/Privacy-Policy"], {
+      relativeTo: this.actRoute,
+    });
+  }
+  ngAfterViewInit(): void {}
+
+  onUserInputChanged(id, value) {
+    this.animacionService.onInputChanged(id, value);
+  }
+
+  onUserFocusChanged(id, isFocused) {
+    this.animacionService.onFocusChanged(id, isFocused);
+  }
+
+  onBlurChanged(id, isBlurred) {
+    this.animacionService.onBlurChanged(id, isBlurred);
+  }
 
   ngOnInit(): any {
-    this.navigationService.setVisible(false);
+    this.showSandwich = false;
+    this.navigation.setVisible(false);
 
-    this.loginForm.addControl('username', this.userCtrl);
-    this.loginForm.addControl('password', this.pwdCtrl);
+    this.loginForm.addControl("username", this.userCtrl);
+    this.loginForm.addControl("password", this.pwdCtrl);
 
     if (this.authService.isLoggedIn()) {
-      this.router.navigate([this.redirect]);
+      this.router.navigate(["../"], { relativeTo: this.actRoute });
     } else {
       this.authService.clearSessionData();
     }
   }
 
-  public login() {
+  login() {
     const userName = this.loginForm.value.username;
     const password = this.loginForm.value.password;
     if (userName && userName.length > 0 && password && password.length > 0) {
       const self = this;
-      this.authService.login(userName, password)
-        .subscribe(() => {
-          self.sessionExpired = false;
-          this.loadUserInfo();
-          self.router.navigate([this.redirect]);
-        }, this.handleError);
+      this.authService.login(userName, password).subscribe(() => {
+        self.sessionExpired = false;
+        self.router.navigate(["../"], { relativeTo: this.actRoute });
+      }, this.handleError);
     }
   }
 
-  private loadUserInfo() {
-    this.mainService.getUserInfo()
-      .subscribe(
-        (result: ServiceResponse) => {
-          this.userInfoService.storeUserInfo(result.data);
-          let avatar = './assets/images/user_profile.png';
-          if (result.data['usr_photo']) {
-            (avatar as any) = this.domSanitizer.bypassSecurityTrustResourceUrl('data:image/*;base64,' + result.data['usr_photo']);
-          }
-          this.oUserInfoService.setUserInfo({
-            username: result.data['usr_name'],
-            avatar: avatar
-          });
-        }
-      );
-  }
-
-  private handleError(error) {
+  handleError(error) {
     switch (error.status) {
       case 401:
-        console.error('Email or password is wrong.');
+        console.error("Email or password is wrong.");
         break;
-      default: break;
+      default:
+        break;
     }
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+    this.animacionService.onShowPassword(this.showPassword);
   }
 }
