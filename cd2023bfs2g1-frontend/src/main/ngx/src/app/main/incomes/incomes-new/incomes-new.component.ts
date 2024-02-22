@@ -34,7 +34,7 @@ export class IncomesNewComponent implements OnInit {
     );
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
   public forceInsertMode(event: any) {
     if (event != OFormComponent.Mode().INSERT) {
       this.form.setInsertMode();
@@ -42,7 +42,7 @@ export class IncomesNewComponent implements OnInit {
     }
   }
 
-  public closeDialog(event: any) {
+  public closeDialog() {
     this.dialogRef.close();
   }
 

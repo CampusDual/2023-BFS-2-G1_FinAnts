@@ -26,19 +26,18 @@ import { D3Locales } from "src/app/shared/d3-locale/locales";
   providers: [ChartService],
 })
 export class ExpensesChartComponent
-  implements OnInit, OnChanges, AfterViewInit
-{
+  implements OnInit, OnChanges, AfterViewInit {
   @Input() sharedDataObject: { data: any[] } | null;
   @ViewChild("discreteBar", { static: false }) discreteBar: OChartComponent;
   @ViewChild("discreteBar", { static: false }) discreteBarNative: ElementRef;
-  protected data: Array<Object>;
+  public data: Array<Object>;
   protected yAxis: string = "SUM_AMOUNT";
   protected xAxis: string = "DATE_SUM_AMOUNT";
   protected service: OntimizeService;
   public lang;
   protected d3Locale = this.d3LocaleService.getD3LocaleConfiguration();
-  protected chartParameters: DiscreteBarChartConfiguration;
-  
+  public chartParameters: DiscreteBarChartConfiguration;
+
 
   constructor(
     protected injector: Injector,
@@ -55,7 +54,7 @@ export class ExpensesChartComponent
     this.queryData();
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   ngAfterViewInit() {
     if (this.sharedDataObject) {

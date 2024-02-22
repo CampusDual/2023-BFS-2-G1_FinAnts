@@ -20,7 +20,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 })
 export class RegisterComponent implements OnInit {
   protected service: OntimizeService;
-  protected showPassword = false;
+  public showPassword = false;
   @Output() volverLogin = new EventEmitter<void>();
 
   public respMessage: string = "";
@@ -46,7 +46,7 @@ export class RegisterComponent implements OnInit {
   ) {
     this.service = this.injector.get(OntimizeService);
   }
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void { }
 
   ngOnInit() {
     const conf = this.service.getDefaultServiceConfiguration("app");
@@ -105,16 +105,16 @@ export class RegisterComponent implements OnInit {
   onBlurChanged(id, isBlurred) {
     this.animacionService.onBlurChanged(id, isBlurred);
   }
-  onErrorMessage() {}
+  onErrorMessage() { }
   register() {
     const usernameValue =
       this.loginForm.get("username") &&
-      this.loginForm.get("username").value != null
+        this.loginForm.get("username").value != null
         ? this.loginForm.get("username").value
         : "";
     const passwordValue =
       this.loginForm.get("password") &&
-      this.loginForm.get("password").value != null
+        this.loginForm.get("password").value != null
         ? this.loginForm.get("password").value
         : "";
     const nameValue =
@@ -123,7 +123,7 @@ export class RegisterComponent implements OnInit {
         : "";
     const lastnameValue =
       this.loginForm.get("lastname") &&
-      this.loginForm.get("lastname").value != null
+        this.loginForm.get("lastname").value != null
         ? this.loginForm.get("lastname").value
         : "";
     const emailValue =

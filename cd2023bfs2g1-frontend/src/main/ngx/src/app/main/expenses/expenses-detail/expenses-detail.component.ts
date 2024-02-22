@@ -19,9 +19,9 @@ export class ExpensesDetailComponent implements OnInit {
       OValidators.patternValidator(/^\d+([,.]\d+)?$/, "negativeNumber")
     );
   }
-  onUpdate(event: any) {
+  onUpdate() {
     this.dialogRef.close();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }

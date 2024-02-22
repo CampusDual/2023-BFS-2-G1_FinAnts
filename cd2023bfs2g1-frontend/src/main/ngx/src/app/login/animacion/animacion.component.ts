@@ -18,7 +18,7 @@ export class AnimacionComponent implements OnInit, AfterViewInit {
   @ViewChild("rightEye", { static: false })
   rightEye: ElementRef<HTMLImageElement>;
 
-  showPassword: boolean = false;
+  public showPassword: boolean = false;
 
   protected imagePaths: string[] = [
     "assets/images/logo/Animacion/login-logo-fr1.png",
@@ -43,8 +43,8 @@ export class AnimacionComponent implements OnInit, AfterViewInit {
     "assets/images/logo/Animacion/login-logo-fr1.png",
   ];
 
-  protected showImage = false;
-  protected currentImage: string;
+  public showImage = false;
+  public currentImage: string;
   protected timeoutId;
   protected currentImageIndex: number = 0;
   protected length: number;

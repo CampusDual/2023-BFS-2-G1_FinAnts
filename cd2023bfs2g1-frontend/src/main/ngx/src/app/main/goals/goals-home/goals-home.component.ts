@@ -8,7 +8,7 @@ import { ChartSeries, PieChartConfiguration } from "ontimize-web-ngx-charts";
   styleUrls: ["./goals-home.component.css"],
 })
 export class GoalsHomeComponent implements OnInit {
-  protected chartParameters: PieChartConfiguration;
+  public chartParameters: PieChartConfiguration;
   public lang;
   protected service: OntimizeService;
   constructor(
@@ -23,7 +23,7 @@ export class GoalsHomeComponent implements OnInit {
     this.translateNoDataMessage();
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
   public translateNoDataMessage() {
     this.lang = this.translateService.getCurrentLang().toUpperCase();
     this.chartParameters.noDataMessage =

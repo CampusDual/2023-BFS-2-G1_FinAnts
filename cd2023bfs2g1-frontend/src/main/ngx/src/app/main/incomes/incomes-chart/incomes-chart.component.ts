@@ -30,13 +30,13 @@ export class IncomesChartComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() sharedDataObject: { data: any[] } | null;
   @ViewChild("discreteBar", { static: false }) discreteBar: OChartComponent;
   @ViewChild("discreteBar", { static: false }) discreteBarNative: ElementRef;
-  protected data: Array<Object>;
+  public data: Array<Object>;
   protected yAxis: string = "SUM_AMOUNT";
   protected xAxis: string = "DATE_SUM_AMOUNT";
   protected service: OntimizeService;
   public lang;
   protected d3Locale = this.d3LocaleService.getD3LocaleConfiguration();
-  protected chartParameters: DiscreteBarChartConfiguration;
+  public chartParameters: DiscreteBarChartConfiguration;
 
   constructor(
     protected injector: Injector,
@@ -52,7 +52,7 @@ export class IncomesChartComponent implements OnInit, OnChanges, AfterViewInit {
     this.translateNoDataMessage();
     this.queryData();
   }
-  ngOnInit() {}
+  ngOnInit() { }
 
   ngAfterViewInit() {
     if (this.sharedDataObject) {

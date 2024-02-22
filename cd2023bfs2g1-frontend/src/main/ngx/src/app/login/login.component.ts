@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   userCtrl: FormControl = new FormControl("", Validators.required);
   pwdCtrl: FormControl = new FormControl("", Validators.required);
   sessionExpired = false;
-  protected showPassword = false;
+  public showPassword = false;
   warningMessagePass: String;
   warningMessageEmail: String;
   public showSandwich: boolean = false;
@@ -72,7 +72,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
       relativeTo: this.actRoute,
     });
   }
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void { }
 
   onUserInputChanged(id, value) {
     this.animacionService.onInputChanged(id, value);

@@ -23,11 +23,11 @@ export class ExpensesHomeComponent implements OnInit {
   showChart: boolean = true;
   //externalData : any[] | null = null;
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
-  clearFilters(event) {
+  clearFilters() {
     this.expenseTable.first.reloadData();
   }
 

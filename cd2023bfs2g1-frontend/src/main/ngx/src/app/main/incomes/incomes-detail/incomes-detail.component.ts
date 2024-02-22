@@ -19,8 +19,8 @@ export class IncomesDetailComponent implements OnInit {
     );
   }
 
-  ngOnInit() {}
-  onUpdate(event: any) {
+  ngOnInit() { }
+  onUpdate() {
     this.dialogRef.close();
   }
 }
