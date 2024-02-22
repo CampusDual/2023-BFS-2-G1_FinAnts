@@ -21,26 +21,26 @@ export class AnimacionComponent implements OnInit, AfterViewInit {
   showPassword: boolean = false;
 
   protected imagePaths: string[] = [
-    "../../assets/images/logo/Animacion/login-logo-fr1.png",
-    "../../assets/images/logo/Animacion/login-logo-fr2.png",
-    "../../assets/images/logo/Animacion/login-logo-fr3.png",
-    "../../assets/images/logo/Animacion/login-logo-fr4.png",
-    "../../assets/images/logo/Animacion/login-logo-fr5.png",
-    "../../assets/images/logo/Animacion/login-logo-fr6.png",
-    "../../assets/images/logo/Animacion/login-logo-fr7.png",
-    "../../assets/images/logo/Animacion/login-logo-fr8.png",
-    "../../assets/images/logo/Animacion/login-logo-fr9.png",
+    "assets/images/logo/Animacion/login-logo-fr1.png",
+    "assets/images/logo/Animacion/login-logo-fr2.png",
+    "assets/images/logo/Animacion/login-logo-fr3.png",
+    "assets/images/logo/Animacion/login-logo-fr4.png",
+    "assets/images/logo/Animacion/login-logo-fr5.png",
+    "assets/images/logo/Animacion/login-logo-fr6.png",
+    "assets/images/logo/Animacion/login-logo-fr7.png",
+    "assets/images/logo/Animacion/login-logo-fr8.png",
+    "assets/images/logo/Animacion/login-logo-fr9.png",
   ];
   protected reverseImage: string[] = [
-    "../../assets/images/logo/Animacion/login-logo-fr9.png",
-    "../../assets/images/logo/Animacion/login-logo-fr8.png",
-    "../../assets/images/logo/Animacion/login-logo-fr7.png",
-    "../../assets/images/logo/Animacion/login-logo-fr6.png",
-    "../../assets/images/logo/Animacion/login-logo-fr5.png",
-    "../../assets/images/logo/Animacion/login-logo-fr4.png",
-    "../../assets/images/logo/Animacion/login-logo-fr3.png",
-    "../../assets/images/logo/Animacion/login-logo-fr2.png",
-    "../../assets/images/logo/Animacion/login-logo-fr1.png",
+    "assets/images/logo/Animacion/login-logo-fr9.png",
+    "assets/images/logo/Animacion/login-logo-fr8.png",
+    "assets/images/logo/Animacion/login-logo-fr7.png",
+    "assets/images/logo/Animacion/login-logo-fr6.png",
+    "assets/images/logo/Animacion/login-logo-fr5.png",
+    "assets/images/logo/Animacion/login-logo-fr4.png",
+    "assets/images/logo/Animacion/login-logo-fr3.png",
+    "assets/images/logo/Animacion/login-logo-fr2.png",
+    "assets/images/logo/Animacion/login-logo-fr1.png",
   ];
 
   protected showImage = false;
@@ -49,9 +49,9 @@ export class AnimacionComponent implements OnInit, AfterViewInit {
   protected currentImageIndex: number = 0;
   protected length: number;
 
-  constructor(private animacionService: AnimacionService) {}
+  constructor(private animacionService: AnimacionService) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   ngAfterViewInit() {
     this.animacionService.showPassword$.subscribe((show) => {
@@ -136,7 +136,7 @@ export class AnimacionComponent implements OnInit, AfterViewInit {
           this.resetEyeTransform();
           this.updateEyeTransforms(this.length);
         }
-      } catch (error) {}
+      } catch (error) { }
     });
   }
 

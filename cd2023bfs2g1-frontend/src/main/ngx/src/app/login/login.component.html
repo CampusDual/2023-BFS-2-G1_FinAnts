@@ -4,56 +4,33 @@
     <div class="container-form">
       <app-animacion></app-animacion>
       <div class="login-title">
-        <img src="../../assets/images/logo/login-title.png" alt="" />
+        <img src="assets/images/logo/login-title.png" alt="" />
       </div>
       <div class="animation-container">
         <div class="flip-card" [class.flip]="showRegister">
           <div class="flip-card-front">
             <div class="inner inner-login">
-              <form
-                [formGroup]="loginForm"
-                (ngSubmit)="login()"
-                class="input-container"
-              >
+              <form [formGroup]="loginForm" (ngSubmit)="login()" class="input-container">
                 <div class="top-form-container">
                   <mat-form-field>
-                    <input
-                      matInput
-                      #user
-                      placeholder="{{ 'USERNAME' | oTranslate }}"
-                      id="username"
-                      [formControl]="userCtrl"
-                      (input)="onUserInputChanged('input', $event.target.value)"
+                    <input matInput #user placeholder="{{ 'USERNAME' | oTranslate }}" id="username"
+                      [formControl]="userCtrl" (input)="onUserInputChanged('input', $event.target.value)"
                       (focus)="onUserInputChanged('focus', $event.target.value)"
-                      (blur)="onUserInputChanged('blur', $event.target.value)"
-                    />
+                      (blur)="onUserInputChanged('blur', $event.target.value)" />
                     <mat-error *ngIf="userCtrl.hasError('required')">
                       {{ "ERROR_USER_REQUIRED" | oTranslate }}
                     </mat-error>
                   </mat-form-field>
                   <mat-form-field>
-                    <input
-                      matInput
-                      #password
-                      placeholder="{{ 'PASSWORD' | oTranslate }}"
-                      id="password"
-                      [formControl]="pwdCtrl"
-                      [type]="showPassword ? 'text' : 'password'"
-                      (input)="
+                    <input matInput #password placeholder="{{ 'PASSWORD' | oTranslate }}" id="password"
+                      [formControl]="pwdCtrl" [type]="showPassword ? 'text' : 'password'" (input)="
                         onUserInputChanged('passwordInput', $event.target.value)
-                      "
-                      (focus)="
+                      " (focus)="
                         onUserInputChanged('passwordFocus', $event.target.value)
-                      "
-                      (blur)="
+                      " (blur)="
                         onUserInputChanged('passwordBlur', $event.target.value)
-                      "
-                    />
-                    <mat-icon
-                      matSuffix
-                      class="icon-button login-input"
-                      (click)="togglePasswordVisibility()"
-                    >
+                      " />
+                    <mat-icon matSuffix class="icon-button login-input" (click)="togglePasswordVisibility()">
                       {{ showPassword ? "visibility" : "visibility_off" }}
                     </mat-icon>
                     <mat-error *ngIf="pwdCtrl.hasError('required')">
